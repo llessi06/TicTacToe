@@ -1,0 +1,5 @@
+<!-- res/drawable/divider_horizontal_line.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#FF000000" /> <!-- Farbcode für die Trennlinie -->
+    <size android:height="4dp" /> <!-- Dicke der horizontalen Trennlinie -->
+</shape>
