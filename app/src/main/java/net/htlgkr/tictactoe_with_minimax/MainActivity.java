@@ -66,9 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     ((TextView) findViewById(R.id.tvPlayer)).setText("O");
                 }
-                Log.d("Minimax", "Minimax Before");
                 findBestMove(ticTacToe);
-                Log.d("Minimax", "Minimax After");
 
                 int gameStatus = ticTacToe.checkGameStatus();
 
@@ -104,8 +102,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public int minmax(TicTacToe ticTacToe, int depth, boolean isMaximizingPlayer) {
-        if (ticTacToe.checkGameStatus() != 0) {
-            return ticTacToe.checkGameStatus();
+        int winner = ticTacToe.checkGameStatus();
+
+        switch (winner) {
+            case 1:
+                return -1;
+            case 2:
+                return 1;
+            case 3:
+                return 0;
         }
 
         int bestVal;
@@ -116,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ticTacToe.fields.get(i).setSymbol("O");
                     ticTacToe.fields.get(i).setOccupied(true);
                     int value = minmax(ticTacToe, depth + 1, false);
-                    bestVal = Integer.max(bestVal, value);
+                    bestVal = Math.max(bestVal, value);
                     ticTacToe.fields.get(i).setSymbol(" ");
                     ticTacToe.fields.get(i).setOccupied(false);
                 }
@@ -128,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ticTacToe.fields.get(i).setSymbol("O");
                     ticTacToe.fields.get(i).setOccupied(true);
                     int value = minmax(ticTacToe, depth + 1, true);
-                    bestVal = Integer.min(bestVal, value);
+                    bestVal = Math.min(bestVal, value);
                     ticTacToe.fields.get(i).setSymbol(" ");
                     ticTacToe.fields.get(i).setOccupied(false);
                 }
@@ -145,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ticTacToe.fields.get(i).setSymbol("O");
                 ticTacToe.fields.get(i).setOccupied(true);
                 int moveValue = minmax(ticTacToe, 0, false);
+                Log.d("minimaxOutput", moveValue + " " + i);
                 ticTacToe.fields.get(i).setSymbol(" ");
                 ticTacToe.fields.get(i).setOccupied(false);
 
